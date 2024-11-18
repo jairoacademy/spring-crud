@@ -1,0 +1,102 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "Courses Spring CRUD",
+    "collectionId": "507bbf94-6b6f-44c8-9ddf-5bc0c401cb58",
+    "dateExported": "2024-11-18T18:16:37.876Z",
+    "version": "1.2",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "3b973a0b-f81e-47c5-982f-8f5e898d8396",
+            "colId": "507bbf94-6b6f-44c8-9ddf-5bc0c401cb58",
+            "containerId": "",
+            "name": "list",
+            "url": "http://localhost:8080/api/courses",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2024-11-16T18:00:06.217Z",
+            "modified": "2024-11-16T18:01:25.163Z",
+            "headers": []
+        },
+        {
+            "_id": "351ed830-d42e-403d-bea4-482fbb55bf7f",
+            "colId": "507bbf94-6b6f-44c8-9ddf-5bc0c401cb58",
+            "containerId": "",
+            "name": "findById",
+            "url": "http://localhost:8080/api/courses/{id}",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2024-11-16T18:01:48.705Z",
+            "modified": "2024-11-16T18:04:58.307Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "id",
+                    "value": "3",
+                    "isPath": true
+                }
+            ]
+        },
+        {
+            "_id": "b24b683c-77e2-4b7a-ad75-2df06f1b3775",
+            "colId": "507bbf94-6b6f-44c8-9ddf-5bc0c401cb58",
+            "containerId": "",
+            "name": "create",
+            "url": "http://localhost:8080/api/courses",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2024-11-16T18:02:44.617Z",
+            "modified": "2024-11-16T19:04:52.147Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"name\": \"Spring Boot\",\n    \"category\": \"The Best Backend\"\n}\n",
+                "form": []
+            }
+        },
+        {
+            "_id": "cfe65dce-d0c8-451e-a83a-8def4c79fa4f",
+            "colId": "507bbf94-6b6f-44c8-9ddf-5bc0c401cb58",
+            "containerId": "",
+            "name": "update",
+            "url": "http://localhost:8080/api/courses/{id}",
+            "method": "PUT",
+            "sortNum": 40000,
+            "created": "2024-11-16T18:04:14.922Z",
+            "modified": "2024-11-16T18:04:47.599Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "id",
+                    "value": "3",
+                    "isPath": true
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"name\": \"Spring Boot Atualizado\",\n    \"category\": \"Backend II\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "329b716f-7f12-41ef-8df6-6654e503aa6c",
+            "colId": "507bbf94-6b6f-44c8-9ddf-5bc0c401cb58",
+            "containerId": "",
+            "name": "delete",
+            "url": "http://localhost:8080/api/courses/{id}",
+            "method": "DELETE",
+            "sortNum": 60000,
+            "created": "2024-11-16T18:05:30.922Z",
+            "modified": "2024-11-16T18:07:56.334Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "id",
+                    "value": "3",
+                    "isPath": true
+                }
+            ]
+        }
+    ],
+    "ref": "WM_Z1qE9lviHlEs6diESvXDUNJZJMoHnWfVv53Jmiti2b0QXz4Tk9C3q3xLiAqr0rKu9Enf7d7K6sQFcCja_3A"
+}

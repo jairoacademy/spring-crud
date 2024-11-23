@@ -24,12 +24,12 @@ public class SpringCrudApplication {
 			
 			Course c1 = Course.builder()
 				.name("Angular")
-				.category("front-end")
+				.category("Front-end")
 				.build();
 			
 			Course c2 = Course.builder()
 				.name("Spring")
-				.category("back-end")
+				.category("Back-end")
 				.build();
 			
 			courseRepository.saveAll(Arrays.asList(c1, c2));

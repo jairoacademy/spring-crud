@@ -1,5 +1,6 @@
 package academy.jairo.springboot.springcrud.service;
 
+import academy.jairo.springboot.springcrud.exception.RecordNotFoundException;
 import academy.jairo.springboot.springcrud.model.Course;
 import academy.jairo.springboot.springcrud.repository.CourseRepository;
 import org.springframework.stereotype.Service;
@@ -23,25 +24,25 @@ public class CourseService {
         return courseRepository.findAll();
     }
 
-    public Optional<Course> findById(Long id) {
-        return courseRepository.findById(id);
+    public Course findById(Long id) {
+        return courseRepository.findById(id)
+                .orElseThrow(() -> new RecordNotFoundException(id));
     }
 
-    public Optional<Course> update(Long id, Course courseDetails) {
+    public Course update(Long id, Course courseDetails) {
         return courseRepository.findById(id)
                 .map(existingCourse -> {
                     existingCourse.setName(courseDetails.getName());
                     existingCourse.setCategory(courseDetails.getCategory());
                     return courseRepository.save(existingCourse);
-                });
+                }).orElseThrow(() -> new RecordNotFoundException(id));
     }
 
-    public boolean delete(Long id) {
-        return courseRepository.findById(id)
-                .map(course -> {
-                    courseRepository.delete(course);
-                    return true;
-                })
-                .orElse(false);
+    public void delete(Long id) {
+        courseRepository.delete(
+            courseRepository.findById(id)
+                .orElseThrow(() -> new RecordNotFoundException(id))
+        );
+        
     }
 } 

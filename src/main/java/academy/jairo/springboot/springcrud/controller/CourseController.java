@@ -22,7 +22,6 @@ public class CourseController {
     public CourseController(CourseService courseService) {
         this.courseService = courseService;
     }
-
     
     @GetMapping
     public ResponseEntity<List<Course>> list() {
@@ -31,30 +30,25 @@ public class CourseController {
     }
     
     @GetMapping("/{id}")
-    public ResponseEntity<Course> findById(@PathVariable @NotNull @Positive Long id) {
-        return courseService.findById(id)
-                .map(course -> new ResponseEntity<>(course, HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    public Course findById(@PathVariable @NotNull @Positive Long id) {
+        return courseService.findById(id);
     }
 
     @PostMapping
-    public ResponseEntity<Course> create(@RequestBody @Valid Course course) {
-        Course savedCourse = courseService.create(course);
-        return new ResponseEntity<>(savedCourse, HttpStatus.CREATED);
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public Course create(@RequestBody @Valid Course course) {
+        return courseService.create(course);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Course> update(@PathVariable @NotNull @Positive Long id, @RequestBody @Valid Course courseDetails) {
-        return courseService.update(id, courseDetails)
-                .map(course -> new ResponseEntity<>(course, HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    public Course update(@PathVariable @NotNull @Positive Long id, @RequestBody @Valid Course courseDetails) {
+        return courseService.update(id, courseDetails);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable @NotNull @Positive Long id) {
-        return courseService.delete(id)
-                ? new ResponseEntity<>(HttpStatus.NO_CONTENT)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable @NotNull @Positive Long id) {
+        courseService.delete(id);
     }
 
 }

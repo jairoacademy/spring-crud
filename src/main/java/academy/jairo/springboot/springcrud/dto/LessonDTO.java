@@ -1,6 +1,5 @@
 package academy.jairo.springboot.springcrud.dto;
 
-import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

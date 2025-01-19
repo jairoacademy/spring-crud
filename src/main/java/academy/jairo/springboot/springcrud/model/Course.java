@@ -1,21 +1,22 @@
 package academy.jairo.springboot.springcrud.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import jakarta.persistence.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
 import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import academy.jairo.springboot.springcrud.enums.Category;
+import academy.jairo.springboot.springcrud.enums.Status;
+import academy.jairo.springboot.springcrud.enums.converters.CategoryConverter;
+import academy.jairo.springboot.springcrud.enums.converters.StatusConverter;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,8 +27,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@SQLDelete(sql = "UPDATE Course SET status = 'inactive' WHERE id = ?")
-@SQLRestriction("status = 'active'")
+@SQLDelete(sql = "UPDATE Course SET status = 'Inativo' WHERE id = ?")
+@SQLRestriction("status = 'Ativo'")
 public class Course implements Serializable {
 
     @Id
@@ -42,16 +43,18 @@ public class Course implements Serializable {
     private String name;
 
     @NotNull
-    @Length(max = 10)
-    @Pattern(regexp = "Back-end|Front-end")
     @Column(length = 10, nullable = false)
-    private String category;
+    @Convert(converter = CategoryConverter.class)
+    private Category category;
 
     @NotNull
-    @Length(max = 10)
-    @Pattern(regexp = "active|inactive")
     @Column(length = 10, nullable = false)
     @Builder.Default
-    private String status = "active";
+    @Convert(converter = StatusConverter.class)
+    private Status status = Status.ACTIVE;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "course")
+    //@JoinColumn(name = "course_id") // evitar usar com questoes de performance
+    private List<Lesson> lessons = new ArrayList<>();
 
 } 

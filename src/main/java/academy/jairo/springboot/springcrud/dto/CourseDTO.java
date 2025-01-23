@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
 import java.util.List;
 
@@ -24,8 +25,8 @@ public class CourseDTO {
     private String name;
 
     //@NotNull
+    //@Length(max = 10)
     //@Pattern(regexp = "Back-end|Front-end")
-    //private Category category;
     private String category;
 
     private List<LessonDTO> lessons;

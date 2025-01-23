@@ -3,6 +3,7 @@ package academy.jairo.springboot.springcrud.service;
 import academy.jairo.springboot.springcrud.dto.CourseDTO;
 import academy.jairo.springboot.springcrud.dto.mapper.CourseMapper;
 import academy.jairo.springboot.springcrud.exception.RecordNotFoundException;
+import academy.jairo.springboot.springcrud.model.Course;
 import academy.jairo.springboot.springcrud.repository.CourseRepository;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -39,11 +40,14 @@ public class CourseService {
         return courseMapper.toDTO(courseRepository.save(courseMapper.toEntity(courseDTO)));
     }
 
-    public CourseDTO update(@NotNull @Positive Long id, CourseDTO courseDetails) {
+    public CourseDTO update(@NotNull @Positive Long id, CourseDTO courseDTO) {
         return courseRepository.findById(id)
                 .map(existingCourse -> {
-                    existingCourse.setName(courseDetails.getName());
-                    existingCourse.setCategory(courseMapper.convertCategoryValue(courseDetails.getCategory()));
+                    Course course = courseMapper.toEntity(courseDTO);
+                    existingCourse.setName(courseDTO.getName());
+                    existingCourse.setCategory(courseMapper.convertCategoryValue(courseDTO.getCategory()));
+                    existingCourse.getLessons().clear();
+                    course.getLessons().forEach(existingCourse.getLessons()::add);
                     return courseMapper.toDTO(courseRepository.save(existingCourse));
                 }).orElseThrow(() -> new RecordNotFoundException(id));
     }

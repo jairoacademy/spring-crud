@@ -1,16 +1,15 @@
 package academy.jairo.springboot.springcrud;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-
 import academy.jairo.springboot.springcrud.enums.Category;
 import academy.jairo.springboot.springcrud.model.Course;
 import academy.jairo.springboot.springcrud.model.Lesson;
 import academy.jairo.springboot.springcrud.repository.CourseRepository;
-
 import org.springframework.boot.CommandLineRunner;
-import java.util.Arrays;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
+
 import java.util.ArrayList;
 
 @SpringBootApplication
@@ -21,6 +20,7 @@ public class SpringCrudApplication {
 	}
 
 	@Bean
+	@Profile("dev")
 	CommandLineRunner initDatabase(CourseRepository courseRepository) {
 		return args -> {
 			courseRepository.deleteAll();

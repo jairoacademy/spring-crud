@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
 import org.hibernate.validator.constraints.Length;
@@ -36,8 +38,8 @@ public class Course implements Serializable {
     @JsonProperty("_id")
     private Long id;
     
-    @NotBlank
     @NotNull
+    @NotBlank
     @Length(min = 5, max = 100)
     @Column(length = 100, nullable = false)
     private String name;
@@ -53,6 +55,9 @@ public class Course implements Serializable {
     @Convert(converter = StatusConverter.class)
     private Status status = Status.ACTIVE;
 
+    @NotNull
+    @NotEmpty
+    @Valid
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "course")
     //@JoinColumn(name = "course_id") // evitar usar com questoes de performance
     private List<Lesson> lessons = new ArrayList<>();

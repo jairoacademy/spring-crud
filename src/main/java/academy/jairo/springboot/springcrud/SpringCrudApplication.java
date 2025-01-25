@@ -42,13 +42,25 @@ public class SpringCrudApplication {
 				.youtubeUrl("12345678902")
 				.course(c1)
 				.build());
-			
-			Course c2 = Course.builder()
-				.name("Spring")
-				.category(Category.BACK_END)
-				.build();
-			
-			courseRepository.saveAll(Arrays.asList(c1, c2));
+
+			courseRepository.save(c1);
+
+			for (int i = 0; i < 20; i++) {
+				Course c2 = Course.builder()
+						.name("Spring " + i)
+						.category(Category.BACK_END)
+						.lessons(new ArrayList<>())
+						.build();
+
+				c2.getLessons().add(Lesson.builder()
+						.name("Introdução ao Spring")
+						.youtubeUrl("12345678901")
+						.course(c2)
+						.build());
+
+				courseRepository.save(c2);
+			}
+
 		};
 	}
 }

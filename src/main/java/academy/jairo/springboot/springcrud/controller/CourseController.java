@@ -27,13 +27,13 @@ public class CourseController {
         this.courseService = courseService;
     }
     
-    @GetMapping
+    @GetMapping("list")
     public ResponseEntity<List<CourseDTO>> list() {
         List<CourseDTO> courses = courseService.findAll();
         return new ResponseEntity<>(courses, HttpStatus.OK);
     }
 
-    @GetMapping("/pageable")
+    @GetMapping
     public ResponseEntity<CoursePageDTO> listPageable(
             @RequestParam(defaultValue = "0") @PositiveOrZero int page,
             @RequestParam(defaultValue = "10") @Positive @Max(100) int pageSize) {
